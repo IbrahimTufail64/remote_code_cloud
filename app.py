@@ -46,7 +46,7 @@ def pool_exe():
 @app.route("/pool-for-hex", methods=["GET"]) 
 def pool_hex():
     # Get the file name from the request (either as query param or JSON body)
-
+        
         return jsonify({"file_name": current_hex}), 200
     
 
@@ -54,6 +54,7 @@ def pool_hex():
 @app.route("/submit_exe",methods=['POST']) 
 def recieve_file():
     file = request.files.get('exe_file')
+    global current_exe
 
     print(file)
     
@@ -70,6 +71,7 @@ def recieve_file():
 @app.route('/submit_hex', methods=['POST'])
 def recieve_hex():
     hex_file = request.files.get('hex_file')
+    global current_hex
 
     if not hex_file:
         return jsonify({"error": "No hex file provided"}), 400
@@ -81,8 +83,9 @@ def recieve_hex():
 
         file_path = os.path.join(UPLOAD_FOLDER, hex_file.filename)
         hex_file.save(file_path)
+        print(current_hex)
         current_hex = f"{hex_file.filename}"
-
+        
         return jsonify({"message": "Saved successful"})
 
     except Exception as e:
