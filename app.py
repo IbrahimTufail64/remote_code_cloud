@@ -54,7 +54,6 @@ def pool_hex():
 @app.route("/submit_exe",methods=['POST']) 
 def recieve_file():
     file = request.files.get('exe_file')
-    print("what the fuck")
 
     print(file)
     
@@ -93,4 +92,4 @@ def recieve_hex():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
